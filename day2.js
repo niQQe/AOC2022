@@ -21,7 +21,7 @@ const POINTS = {
 	}
 }
 
-const weakness = {
+const WEAKNESS = {
 	rock: 'paper',
 	paper: 'scissors',
 	scissors: 'rock',
@@ -36,7 +36,7 @@ const input = fs.readFileSync('day2-input.txt', 'utf8')
 /** Part 1 */
 const getScorePart1 = (round) => {
 	const [opponentMove, yourMove] = round.split` `
-	if (weakness[opponentMove].includes(yourMove)) return POINTS.shape[yourMove] + POINTS.round.win
+	if (WEAKNESS[opponentMove].includes(yourMove)) return POINTS.shape[yourMove] + POINTS.round.win
 	if (opponentMove === yourMove) return POINTS.shape[yourMove] + POINTS.round.draw
 	return POINTS.shape[yourMove]
 }
@@ -51,10 +51,10 @@ console.log(scorePart1);
 /** Part 2 */
 const getScorePart2 = (round) => {
 	const [opponentMove, yourMove] = round.split` `
-	if (yourMove === 'scissors') return POINTS.shape[weakness[opponentMove]] + POINTS.round.win
+	if (yourMove === 'scissors') return POINTS.shape[WEAKNESS[opponentMove]] + POINTS.round.win
 	if (yourMove === 'paper') return POINTS.shape[opponentMove] + POINTS.round.draw
 	if (yourMove === 'rock') {
-		for (const row of Object.entries(weakness)) {
+		for (const row of Object.entries(WEAKNESS)) {
 			const [shape, shapeWeakness] = row
 			if (shapeWeakness.includes(opponentMove)) {
 				return POINTS.shape[shape]
