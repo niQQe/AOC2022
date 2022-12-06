@@ -1,10 +1,9 @@
 const fs = require('fs');
 
-const input = fs.readFileSync('day5-input.txt', 'utf-8').replace(/\r/g, ''.split`\n`)
+const input = fs.readFileSync('day5-input.txt', 'utf-8').split`\n`.map(r => r.replace(/\r|\n/, ''))
 
-const resultPart1 = input
-	.split`\n`
-	.slice(9, input.split`\n`.length)
+const getResult = (part) => input
+	.slice(10, input.length)
 	.map(v => v.split` `.filter(m => +m))
 	.map((n) => {
 		const [amount, from, to] = n
@@ -13,12 +12,21 @@ const resultPart1 = input
 		const [amount, from, to] = move.split`-`
 		const _from = result[from];
 		const _to = result[to];
-		for (i = 0; i < amount; i++) {
-			_to.unshift(_from[i])
-			result[from] = _from.slice(i + 1, _from.length);
+		if (part === 1) {
+			for (i = 0; i < amount; i++) {
+				_to.unshift(_from[i])
+				result[from] = _from.slice(i + 1, _from.length);
+			}
+		} else {
+			const temp = []
+			for (i = 0; i < amount; i++) {
+				temp.push(_from[i])
+				result[from] = _from.slice(i + 1, _from.length);
+			}
+			if (_to) _to.unshift(...temp)
 		}
 		return result
-	}, Object.keys(keyedGroup = input.split`\n`.map(r => {
+	}, Object.keys(keyedGroup = input.map(r => {
 		const splitted = r.split` `
 		if (r.includes('[')) return splitted.join`,`;
 	}).filter(r => r).reduce((parsedData, row) => {
@@ -45,4 +53,8 @@ const resultPart1 = input
 		return chars
 	}, '')
 
+const resultPart1 = getResult(1)
+const resultPart2 = getResult(2)
+
 console.log(resultPart1);
+console.log(resultPart2);
