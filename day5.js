@@ -26,16 +26,16 @@ const resultPart1 = input
 			if (c.includes('[')) c = `${i}-${c}`
 			return c
 		})
-			.join``
-			.replace(/,+/g, ',')
-			.split`,`
-			.forEach(indexedSymbol => {
-				const [index, symbol] = indexedSymbol.split`-`
-				if (index) {
-					if (!parsedData[index]) parsedData[index] = []
-					parsedData[index].push(symbol)
-				}
-			})
+		.join``
+		.replace(/,+/g, ',')
+		.split`,`
+		.forEach(indexedSymbol => {
+			const [index, symbol] = indexedSymbol.split`-`
+			if (index) {
+				if (!parsedData[index]) parsedData[index] = []
+				parsedData[index].push(symbol)
+			}
+		})
 		return parsedData
 	}, {})).reduce((groups, key) => {
 		groups.push(keyedGroup[key])
