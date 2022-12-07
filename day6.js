@@ -5,10 +5,8 @@ const getResult = (range) => {
 	for (const [index, _] of input.split``.entries()) {
 		if (new Set(...[input.slice(index, index + range)]).size === range) {
 			return range + index
-			break
 		}
 	}
-	return count
 }
 
 const resultPart1 = getResult(4);
