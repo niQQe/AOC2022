@@ -18,12 +18,12 @@ const getResult = (part) => input
 				result[from] = _from.slice(i + 1, _from.length);
 			}
 		} else {
-			const temp = []
+			const ordered = []
 			for (i = 0; i < amount; i++) {
 				temp.push(_from[i])
 				result[from] = _from.slice(i + 1, _from.length);
 			}
-			if (_to) _to.unshift(...temp)
+			if (_to) _to.unshift(...ordered)
 		}
 		return result
 	}, Object.keys(keyedGroup = input.map(r => {
@@ -34,16 +34,16 @@ const getResult = (part) => input
 			if (c.includes('[')) c = `${i}-${c}`
 			return c
 		})
-		.join``
-		.replace(/,+/g, ',')
-		.split`,`
-		.forEach(indexedSymbol => {
-			const [index, symbol] = indexedSymbol.split`-`
-			if (index) {
-				if (!parsedData[index]) parsedData[index] = []
-				parsedData[index].push(symbol)
-			}
-		})
+			.join``
+			.replace(/,+/g, ',')
+			.split`,`
+			.forEach(indexedSymbol => {
+				const [index, symbol] = indexedSymbol.split`-`
+				if (index) {
+					if (!parsedData[index]) parsedData[index] = []
+					parsedData[index].push(symbol)
+				}
+			})
 		return parsedData
 	}, {})).reduce((groups, key) => {
 		groups.push(keyedGroup[key])
