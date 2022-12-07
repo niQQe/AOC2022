@@ -2,59 +2,70 @@ const fs = require('fs');
 
 const input = fs.readFileSync('day5-input.txt', 'utf-8').split`\n`.map(r => r.replace(/\r|\n/, ''))
 
-const getResult = (part) => input
-	.slice(10, input.length)
-	.map(v => v.split` `.filter(m => +m))
-	.map((n) => {
-		const [amount, from, to] = n
-		return `${amount}-${+from - 1}-${+to - 1}`
-	}).reduce((result, move,) => {
-		const [amount, from, to] = move.split`-`
-		const _from = result[from];
-		const _to = result[to];
+const parsedData = () => {
+	const parsedIndexes = input[8].replace(/' '/g, ',').split``.map((char, i) => {
+		if (char != ' ') char = i;
+		return char
+	}).filter(el => +el);
+
+	const arrayPlaceholder = [...Array(parsedIndexes.length).keys()].reduce((acc, _) => {
+		acc.push([])
+		return acc
+	}, [])
+
+	const filledIndexArray = arrayPlaceholder.reduce((acc) => {
+		return acc.reduce((result, _, i) => {
+			result[i].push(parsedIndexes[i])
+			return result
+		}, acc)
+	}, arrayPlaceholder)
+
+	const moves = input.slice(parsedIndexes.length + 1, input.length).map(r => r.split` `.filter(n => +n).map((n, i) => i > 0 ? n - 1 : +n).join`-`);
+	const matrix = filledIndexArray.map((row) => row.map((n, i) => input[i][n])).map(row => row.filter(r => r !== ' '))
+
+	return {
+		moves, matrix
+	}
+};
+
+const makeMoves = (part, moves, matrix) => {
+	for (const move of moves) {
+		const [amount, moveFrom, moveTo] = move.split`-`.map(n => +n)
+		const from = matrix[moveFrom];
+		const to = matrix[moveTo];
 		if (part === 1) {
 			for (i = 0; i < amount; i++) {
-				_to.unshift(_from[i])
-				result[from] = _from.slice(i + 1, _from.length);
+				to.unshift(from[i])
+				matrix[moveFrom] = from.slice(i + 1, from.length);
 			}
 		} else {
 			const ordered = []
 			for (i = 0; i < amount; i++) {
-				temp.push(_from[i])
-				result[from] = _from.slice(i + 1, _from.length);
+				ordered.push(from[i])
+				matrix[moveFrom] = from.slice(i + 1, from.length);
 			}
-			if (_to) _to.unshift(...ordered)
+			if (to) to.unshift(...ordered)
 		}
-		return result
-	}, Object.keys(keyedGroup = input.map(r => {
-		const splitted = r.split` `
-		if (r.includes('[')) return splitted.join`,`;
-	}).filter(r => r).reduce((parsedData, row) => {
-		row.split``.map((c, i) => {
-			if (c.includes('[')) c = `${i}-${c}`
-			return c
-		})
-			.join``
-			.replace(/,+/g, ',')
-			.split`,`
-			.forEach(indexedSymbol => {
-				const [index, symbol] = indexedSymbol.split`-`
-				if (index) {
-					if (!parsedData[index]) parsedData[index] = []
-					parsedData[index].push(symbol)
-				}
-			})
-		return parsedData
-	}, {})).reduce((groups, key) => {
-		groups.push(keyedGroup[key])
-		return groups
-	}, [])).reduce((chars, [first]) => {
-		chars += first.replace(/[\[\]']+/g, '')
-		return chars
+	}
+	return matrix
+}
+
+const getCratesOnTop = (finalStackOrder) => {
+	return finalStackOrder.reduce((acc, [first]) => {
+		acc += first
+		return acc
 	}, '')
+};
 
-const resultPart1 = getResult(1)
-const resultPart2 = getResult(2)
+const getResult = (part) => {
+	const { moves, matrix } = parsedData()
+	const finalStackOrder = makeMoves(part, moves, matrix)
+	return getCratesOnTop(finalStackOrder)
+}
 
-console.log(resultPart1);
-console.log(resultPart2);
+console.log(getResult(1));
+console.log(getResult(2));
+
+
+
+
