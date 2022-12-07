@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const input = fs.readFileSync('day5-input.txt', 'utf-8').split`\n`.map(r => r.replace(/\r|\n/, ''))
 
-const parsedData = () => {
+const parseData = () => {
 	const parsedIndexes = input[8].replace(/' '/g, ',').split``.map((char, i) => {
 		if (char != ' ') char = i;
 		return char
@@ -58,7 +58,7 @@ const getCratesOnTop = (finalStackOrder) => {
 };
 
 const getResult = (part) => {
-	const { moves, matrix } = parsedData()
+	const { moves, matrix } = parseData()
 	const finalStackOrder = makeMoves(part, moves, matrix)
 	return getCratesOnTop(finalStackOrder)
 }
