@@ -2,13 +2,10 @@ const fs = require('fs');
 const input = fs.readFileSync('day6-input.txt', 'utf8')
 
 const getResult = (range) => {
-	let count = 0
 	for (const [index, _] of input.split``.entries()) {
 		if (new Set(...[input.slice(index, index + range)]).size === range) {
-			count += range
+			return range + index
 			break
-		} else {
-			count++
 		}
 	}
 	return count
