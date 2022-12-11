@@ -14,7 +14,6 @@ const checkLeft = (rowId, columnId) => {
 			break
 		}
 		scenicScore++
-
 	}
 	return {
 		neighboursLeft: trees.every(n => n < input[rowId][columnId]),
