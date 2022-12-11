@@ -85,17 +85,14 @@ const getResult = () => {
 
 	for (const [rowId, row] of input.entries()) {
 		for (const [columnId] of row.entries()) {
-			if (rowId != 0 && rowId != input.length - 1) {
-				if (columnId != 0 && columnId != input.length - 1) {
-					const { neighboursLeft, leftScenicScore } = checkLeft(rowId, columnId)
-					const { neighboursRight, rightScenicScore } = checkRight(rowId, columnId)
-					const { neighboursUp, upScenicScore } = checkUp(rowId, columnId)
-					const { neighboursDown, downScenicScore } = checkDown(rowId, columnId)
-
-					const isCovered = !neighboursLeft && !neighboursRight && !neighboursUp && !neighboursDown
-					scenicScore.push([leftScenicScore, rightScenicScore, upScenicScore, downScenicScore].flat().reduce((a, b) => a * b))
-					if (!isCovered) treesNotCovered++
-				}
+			if (rowId != 0 && rowId != input.length - 1 && columnId != 0 && columnId != input.length - 1) {
+				const { neighboursLeft, leftScenicScore } = checkLeft(rowId, columnId)
+				const { neighboursRight, rightScenicScore } = checkRight(rowId, columnId)
+				const { neighboursUp, upScenicScore } = checkUp(rowId, columnId)
+				const { neighboursDown, downScenicScore } = checkDown(rowId, columnId)
+				const isCovered = !neighboursLeft && !neighboursRight && !neighboursUp && !neighboursDown
+				if (!isCovered) treesNotCovered++
+				scenicScore.push([leftScenicScore, rightScenicScore, upScenicScore, downScenicScore].flat().reduce((a, b) => a * b))
 			}
 		}
 	}
