@@ -2,104 +2,104 @@ const fs = require('fs');
 
 const input = fs.readFileSync('day8-input.txt', 'utf8').split`\n`.map(v => v.split``).map(r => r.filter(v => v != '\r')).map(v => v.map(v => +v))
 
-const checkLeft = (i, j) => {
+const checkLeft = (rowId, columnId) => {
 	const trees = []
 	let scenicScore = 0
-	for (let k = j - 1; ; k--) {
-		trees.push(input[i][k]);
-		if (k == 0) break
+	for (let k = columnId - 1; k >= 0; k--) {
+		trees.push(input[rowId][k]);
 	}
-	for (let k = j - 1; ; k--) {
-		if (input[i][k] >= input[i][j]) {
+	for (let k = columnId - 1; k >= 0; k--) {
+		if (input[rowId][k] >= input[rowId][columnId]) {
 			scenicScore++
 			break
-		} else {
-			scenicScore++
 		}
-		if (k == 0) break
+		scenicScore++
+
 	}
 	return {
-		isCovered: trees.every(n => n < input[i][j]),
-		scenicScore: scenicScore
+		neighboursLeft: trees.every(n => n < input[rowId][columnId]),
+		leftScenicScore: scenicScore
 	}
 };
 
-const checkUp = (i, j) => {
+const checkUp = (rowId, columnId) => {
 	const trees = []
 	let scenicScore = 0
-	for (let k = i - 1; ; k--) {
-		trees.push(input[k][j]);
-		if (k == 0) break
+	for (let k = rowId - 1; k >= 0; k--) {
+		trees.push(input[k][columnId]);
 	}
-	for (let k = i - 1; ; k--) {
-		if (input[k][j] >= input[i][j]) {
+	for (let k = rowId - 1; k >= 0; k--) {
+		if (input[k][columnId] >= input[rowId][columnId]) {
 			scenicScore++
 			break
-		} else {
-			scenicScore++
 		}
-		if (k == 0) break
+		scenicScore++
 	}
 	return {
-		isCovered: trees.every(n => n < input[i][j]),
-		scenicScore: scenicScore
+		neighboursUp: trees.every(n => n < input[rowId][columnId]),
+		upScenicScore: scenicScore
 	}
 };
 
-const checkRight = (i, j) => {
+const checkRight = (rowId, columnId) => {
 	const trees = []
 	let scenicScore = 0
-	for (let k = j + 1; k < input[i].length; k++) {
-		trees.push(input[i][k]);
+	for (let k = columnId + 1; k < input[columnId].length; k++) {
+		trees.push(input[rowId][k]);
 	}
-	for (let k = j + 1; k < input[i].length; k++) {
-		if (input[i][k] >= input[i][j]) {
+	for (let k = columnId + 1; k < input[rowId].length; k++) {
+		if (input[rowId][k] >= input[rowId][columnId]) {
 			scenicScore++
 			break
-		} else {
-			scenicScore++
 		}
+		scenicScore++
 	}
 	return {
-		isCovered: trees.every(n => n < input[i][j]),
-		scenicScore: scenicScore
+		neighboursRight: trees.every(n => n < input[rowId][columnId]),
+		rightScenicScore: scenicScore
 	}
 };
 
-const checkDown = (i, j) => {
+const checkDown = (rowId, columnId) => {
 	const trees = []
 	let scenicScore = 0
-	for (let k = i + 1; k < input.length; k++) {
-		trees.push(input[k][j]);
+	for (let k = rowId + 1; k < input.length; k++) {
+		trees.push(input[k][columnId]);
 	}
-	for (let k = i + 1; k < input.length; k++) {
-		if (input[k][j] >= input[i][j]) {
+	for (let k = rowId + 1; k < input.length; k++) {
+		if (input[k][columnId] >= input[rowId][columnId]) {
 			scenicScore++
 			break
-		} else {
-			scenicScore++
 		}
+		scenicScore++
 	}
 	return {
-		isCovered: trees.every(n => n < input[i][j]),
-		scenicScore: scenicScore
+		neighboursDown: trees.every(n => n < input[rowId][columnId]),
+		downScenicScore: scenicScore
 	}
 };
 
 const getResult = () => {
 	let treesNotCovered = 0
 	let scenicScore = []
-	for (let i = 0; i < input.length; i++) {
-		for (let j = 0; j < input[i].length; j++) {
-			if (i != 0 && i != input.length - 1) {
-				if (j != 0 && j != input[i].length - 1) {
-					const isCovered = [checkLeft(i, j).isCovered, checkRight(i, j).isCovered, checkUp(i, j).isCovered, checkDown(i, j).isCovered].every(v => !v)
-					scenicScore.push([checkLeft(i, j).scenicScore, checkRight(i, j).scenicScore, checkUp(i, j).scenicScore, checkDown(i, j).scenicScore].flat().reduce((a, b) => a * b))
+
+	for (const [rowId, row] of input.entries()) {
+		for (const [columnId] of row.entries()) {
+			if (rowId != 0 && rowId != input.length - 1) {
+				if (columnId != 0 && columnId != input.length - 1) {
+					const { neighboursLeft, leftScenicScore } = checkLeft(rowId, columnId)
+					const { neighboursRight, rightScenicScore } = checkRight(rowId, columnId)
+					const { neighboursUp, upScenicScore } = checkUp(rowId, columnId)
+					const { neighboursDown, downScenicScore } = checkDown(rowId, columnId)
+
+					const isCovered = !neighboursLeft && !neighboursRight && !neighboursUp && !neighboursDown
+					scenicScore.push([leftScenicScore, rightScenicScore, upScenicScore, downScenicScore].flat().reduce((a, b) => a * b))
 					if (!isCovered) treesNotCovered++
 				}
 			}
 		}
 	}
+
 	return {
 		resultPart1: treesNotCovered + (input.length * 4) - 4,
 		resultPart2: scenicScore.sort((a, b) => b - a)[0]
