@@ -23,6 +23,7 @@ const checkLeft = (i, j) => {
 		scenicScore: scenicScore
 	}
 };
+
 const checkUp = (i, j) => {
 	const trees = []
 	let scenicScore = 0
@@ -44,6 +45,7 @@ const checkUp = (i, j) => {
 		scenicScore: scenicScore
 	}
 };
+
 const checkRight = (i, j) => {
 	const trees = []
 	let scenicScore = 0
