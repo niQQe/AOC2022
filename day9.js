@@ -15,9 +15,9 @@ const isAdjacent = (headY, headX) => {
 		  leftDown = `${headY + 1},${headX - 1}` === tail,
 		  down = `${headY + 1},${headX}` === tail,
 		  up = `${headY - 1},${headX}` === tail,
-		  overLapping = `${headY},${headX}` === tail
-		  
-	return [right, left, down, up, rightDown, rightUp, leftDown, leftUp, overLapping].some(r => r)
+		  overlapping = `${headY},${headX}` === tail
+
+	return [right, left, down, up, rightDown, rightUp, leftDown, leftUp, overlapping].some(r => r)
 };
 resultPart1 = input.reduce((result, move) => {
 	const [dir, steps] = move
