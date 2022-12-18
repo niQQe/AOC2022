@@ -1,8 +1,8 @@
 const fs = require('fs');
 const input = fs.readFileSync('day9-input.txt', 'utf-8').split`\n`.map(v => v.split` `.map(v => +v ? +v : v))
 
-let headPosition = [4, 0]
-let tailPosition = [4, 0]
+let headPosition = [0, 0]
+let tailPosition = [0, 0]
 
 const isNotAdjacent = (headY, headX) => {
 	const [tailY, tailX] = tailPosition
@@ -64,7 +64,8 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 	}
+	result.add('0,0')
 	return result
-}, new Set()).size + 1
+}, new Set()).size
 
 console.log(resultPart1);
