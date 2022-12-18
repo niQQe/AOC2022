@@ -6,20 +6,20 @@ let tailPosition = [0, 0]
 
 const isAdjacent = (headY, headX) => {
 	const [tailY, tailX] = tailPosition
-	const tail = `${tailY},${tailX}`
-	const right = `${headY},${headX + 1}` === tail
-	const rightDown = `${headY + 1},${headX + 1}` === tail
-	const rightUp = `${headY - 1},${headX + 1}` === tail
-	const left = `${headY},${headX - 1}` === tail
-	const leftUp = `${headY - 1},${headX - 1}` === tail
-	const leftDown = `${headY + 1},${headX - 1}` === tail
-	const down = `${headY + 1},${headX}` === tail
-	const up = `${headY - 1},${headX}` === tail
-	const overLapping = `${headY},${headX}` === tail
+	const tail = `${tailY},${tailX}`,
+		  right = `${headY},${headX + 1}` === tail,
+		  rightDown = `${headY + 1},${headX + 1}` === tail,
+		  rightUp = `${headY - 1},${headX + 1}` === tail,
+		  left = `${headY},${headX - 1}` === tail,
+		  leftUp = `${headY - 1},${headX - 1}` === tail,
+		  leftDown = `${headY + 1},${headX - 1}` === tail,
+		  down = `${headY + 1},${headX}` === tail,
+		  up = `${headY - 1},${headX}` === tail,
+		  overLapping = `${headY},${headX}` === tail
+		  
 	return [right, left, down, up, rightDown, rightUp, leftDown, leftUp, overLapping].some(r => r)
 };
-
-const resultPart1 = input.reduce((result, move) => {
+resultPart1 = input.reduce((result, move) => {
 	const [dir, steps] = move
 	const [hy, hx] = headPosition
 	switch (dir) {
