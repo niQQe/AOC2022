@@ -5,8 +5,8 @@ let headPosition = [0, 0]
 let tailPosition = [0, 0]
 
 const isAdjacent = (headY, headX) => {
-	const [tailY, tailX] = tailPosition
-	const tail = `${tailY},${tailX}`,
+	const [tailY, tailX] = tailPosition,
+		  tail = `${tailY},${tailX}`,
 		  right = `${headY},${headX + 1}` === tail,
 		  rightDown = `${headY + 1},${headX + 1}` === tail,
 		  rightUp = `${headY - 1},${headX + 1}` === tail,
