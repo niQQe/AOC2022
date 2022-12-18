@@ -30,8 +30,7 @@ const isAdjacent = (headY, headX) => {
 };
 
 const resultPart1 = input.reduce((result, move) => {
-	const [dir, steps] = move,
-		  [hy, hx] = headPosition
+	const [dir, steps] = move
 
 	switch (dir) {
 		case 'R': {
@@ -39,7 +38,7 @@ const resultPart1 = input.reduce((result, move) => {
 				headPosition[1]++
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0], headPosition[1] - 1]
-				result.add(`${hy},${headPosition[1] - 1}`)
+				result.add(`${headPosition[0]},${headPosition[1] - 1}`)
 			}
 			break;
 		}
@@ -48,7 +47,7 @@ const resultPart1 = input.reduce((result, move) => {
 				headPosition[0]--
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0] + 1, headPosition[1]]
-				result.add(`${headPosition[0] + 1},${hx}`)
+				result.add(`${headPosition[0] + 1},${headPosition[1]}`)
 			}
 			break;
 		}
@@ -57,7 +56,7 @@ const resultPart1 = input.reduce((result, move) => {
 				headPosition[0]++
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0] - 1, headPosition[1]]
-				result.add(`${headPosition[0] - 1},${hx}`)
+				result.add(`${headPosition[0] - 1},${headPosition[1]}`)
 			}
 			break;
 		}
@@ -66,7 +65,7 @@ const resultPart1 = input.reduce((result, move) => {
 				headPosition[1]--
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0], headPosition[1] + 1]
-				result.add(`${hy},${headPosition[1] + 1}`)
+				result.add(`${headPosition[0]},${headPosition[1] + 1}`)
 			}
 			break;
 		}
