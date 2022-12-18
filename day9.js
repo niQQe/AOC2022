@@ -19,6 +19,7 @@ const isAdjacent = (headY, headX) => {
 
 	return [right, left, down, up, rightDown, rightUp, leftDown, leftUp, overlapping].some(r => r)
 };
+
 resultPart1 = input.reduce((result, move) => {
 	const [dir, steps] = move
 	const [hy, hx] = headPosition
