@@ -29,7 +29,7 @@ const isAdjacent = (headY, headX) => {
 	].map(v => v === `${tailY},${tailX}`).some(r => r)
 };
 
-resultPart1 = input.reduce((result, move) => {
+const resultPart1 = input.reduce((result, move) => {
 	const [dir, steps] = move,
 		  [hy, hx] = headPosition
 
