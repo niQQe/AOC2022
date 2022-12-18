@@ -24,7 +24,7 @@ const resultPart1 = input.reduce((result, move) => {
 	const [hy, hx] = headPosition
 	switch (dir) {
 		case 'R': {
-			for (let step = 1; step <= steps; step++) {
+			for (let step = 0; step < steps; step++) {
 				headPosition[1]++
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0], headPosition[1] - 1]
@@ -33,7 +33,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'U': {
-			for (let step = 1; step <= steps; step++) {
+			for (let step = 0; step < steps; step++) {
 				headPosition[0]--
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0] + 1, headPosition[1]]
@@ -42,7 +42,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'D': {
-			for (let step = 1; step <= steps; step++) {
+			for (let step = 0; step < steps; step++) {
 				headPosition[0]++
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0] - 1, headPosition[1]]
@@ -51,7 +51,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'L': {
-			for (let step = 1; step <= steps; step++) {
+			for (let step = 0; step < steps; step++) {
 				headPosition[1]--
 				if (isAdjacent(headPosition[0], headPosition[1])) continue
 				tailPosition = [headPosition[0], headPosition[1] + 1]
