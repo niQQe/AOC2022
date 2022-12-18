@@ -21,8 +21,9 @@ const isAdjacent = (headY, headX) => {
 };
 
 resultPart1 = input.reduce((result, move) => {
-	const [dir, steps] = move
-	const [hy, hx] = headPosition
+	const [dir, steps] = move,
+		  [hy, hx] = headPosition
+		  
 	switch (dir) {
 		case 'R': {
 			for (let step = 0; step < steps; step++) {
