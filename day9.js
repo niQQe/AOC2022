@@ -16,7 +16,17 @@ const isAdjacent = (headY, headX) => {
 		  up = `${headY - 1},${headX}`,
 		  overlapping = `${headY},${headX}`
 
-	return [right, left, down, up, rightDown, rightUp, leftDown, leftUp, overlapping].map(v => v === `${tailY},${tailX}`).some(r => r)
+	return [
+		right,
+		left,
+		down,
+		up,
+		rightDown,
+		rightUp,
+		leftDown,
+		leftUp,
+		overlapping
+	].map(v => v === `${tailY},${tailX}`).some(r => r)
 };
 
 resultPart1 = input.reduce((result, move) => {
