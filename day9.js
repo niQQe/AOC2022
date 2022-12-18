@@ -20,11 +20,11 @@ const isNotAdjacent = (headY, headX) => {
 };
 
 const resultPart1 = input.reduce((result, move) => {
-	const [dir, step] = move
+	const [dir, steps] = move
 	const [hy, hx] = headPosition
 	switch (dir) {
 		case 'R': {
-			for (let j = 1; j <= step; j++) {
+			for (let step = 1; step <= steps; step++) {
 				headPosition[1]++
 				if (isNotAdjacent(headPosition[0], headPosition[1])) {
 					tailPosition[0] = headPosition[0]
@@ -35,7 +35,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'U': {
-			for (let j = 1; j <= step; j++) {
+			for (let step = 1; step <= steps; step++) {
 				headPosition[0]--
 				if (isNotAdjacent(headPosition[0], headPosition[1])) {
 					tailPosition[1] = headPosition[1]
@@ -46,7 +46,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'D': {
-			for (let j = 1; j <= step; j++) {
+			for (let step = 1; step <= steps; step++) {
 				headPosition[0]++
 				if (isNotAdjacent(headPosition[0], headPosition[1])) {
 					tailPosition[1] = headPosition[1]
@@ -57,7 +57,7 @@ const resultPart1 = input.reduce((result, move) => {
 			break;
 		}
 		case 'L': {
-			for (let j = 1; j <= step; j++) {
+			for (let step = 1; step <= steps; step++) {
 				headPosition[1]--
 				if (isNotAdjacent(headPosition[0], headPosition[1])) {
 					tailPosition[0] = headPosition[0]
