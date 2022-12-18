@@ -70,5 +70,4 @@ const resultPart1 = input.reduce((result, move) => {
 	}
 	return result
 }, new Set()).size + 1
-
 console.log(resultPart1);
