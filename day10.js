@@ -38,8 +38,8 @@ const resultPart2 = () => {
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
 				currentCycle = 0
-				currentLineChars = ''
 				monitor.push(currentLineChars)
+				currentLineChars = ''
 			}
 		}
 		if (value) currentRegister += +value
@@ -49,6 +49,7 @@ const resultPart2 = () => {
 			else newSprite[index] = '#'
 		}
 		currentSprite = newSprite.join``
+	
 		return monitor
 	}, [])
 }
