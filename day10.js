@@ -11,8 +11,8 @@ const resultPart1 = () => {
 	let currentRegister = 1
 	const cyclesOfInterest = [20, 60, 100, 140, 180, 220]
 
-	return input.reduce((sum, row) => {
-		const [instruction, value] = row.split` `
+	return input.reduce((sum, line) => {
+		const [instruction, value] = line.split` `
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
@@ -31,15 +31,15 @@ const resultPart2 = () => {
 	let currentRegister = 1
 	const cyclesOfInterest = [40, 80, 120, 160, 200, 240]
 
-	return input.reduce((acc, row) => {
-		const [instruction, value] = row.split` `
+	return input.reduce((monitor, line) => {
+		const [instruction, value] = line.split` `
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
 			currentLineChars += currentSprite[currentCycle]
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
 				currentCycle = 0
 				currentLineChars = ''
-				acc.push(currentLineChars)
+				monitor.push(currentLineChars)
 			}
 		}
 		if (value) currentRegister += +value
@@ -49,8 +49,7 @@ const resultPart2 = () => {
 			else newSprite[index] = '#'
 		}
 		currentSprite = newSprite.join``
-
-		return acc
+		return monitor
 	}, [])
 }
 
