@@ -6,24 +6,57 @@ const cyclesPerInstruction = {
 	addx: 2
 }
 
-const counters = {
-	X: 1,
-	cycles: 0
+const resultPart1 = () => {
+	let currentCycle = 0
+	let registerValue = 1
+	const cyclesOfInterest = [20, 60, 100, 140, 180, 220]
+
+	return input.reduce((sum, row) => {
+		const [instruction, value] = row.split` `
+		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
+			currentCycle++
+			if (cyclesOfInterest.includes(currentCycle)) {
+				sum += registerValue * currentCycle;
+			}
+		}
+		if (value) registerValue += +value
+		return sum
+	}, 0)
+};
+
+const resultPart2 = () => {
+	let spritePosition = '###.....................................'
+	let currentCycle = 0
+	let registerValue = 1
+	let lineChars = ''
+	const cyclesOfInterest = [40, 80, 120, 160, 200, 240]
+
+	return input.reduce((acc, row) => {
+		const [instruction, value] = row.split` `
+		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
+			lineChars += spritePosition[currentCycle]
+			currentCycle++
+			if (cyclesOfInterest.includes(currentCycle)) {
+				currentCycle = 0
+				acc.push(lineChars)
+				lineChars = ''
+			}
+		}
+		if (value) registerValue += +value
+
+		const split = spritePosition.split``
+		for (const [index, _] of split.entries()) {
+			if (index < registerValue - 1 || index >= registerValue + 2) split[index] = '.'
+			else split[index] = '#'
+		}
+
+		spritePosition = split.join``
+
+		return acc
+	}, [])
 }
 
-const interestingSignalStrengths = [20, 60, 100, 140, 180, 220]
+console.log(resultPart1());
+console.log(resultPart2());
 
-const resultPart1 = input.reduce((sum, row) => {
-	const [instruction, value] = row.split` `
-	for (let i = 0; i < cyclesPerInstruction[instruction]; i++) {
-		counters.cycles++
-		if (interestingSignalStrengths.includes(counters.cycles)) {
-			sum += counters.X * counters.cycles;
-		}
-	}
-	if (value) counters.X += +value
-	return sum
-}, 0)
 
-console.log('...............'.length);
-console.log(resultPart1)
