@@ -13,16 +13,13 @@ const resultPart1 = () => {
 
 	return input.reduce((sum, row) => {
 		const [instruction, value] = row.split` `
-
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
 				sum += currentRegister * currentCycle;
 			}
 		}
-
 		if (value) currentRegister += +value
-		
 		return sum
 	}, 0)
 };
@@ -36,7 +33,6 @@ const resultPart2 = () => {
 
 	return input.reduce((acc, row) => {
 		const [instruction, value] = row.split` `
-
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
 			currentLineChars += currentSprite[currentCycle]
 			currentCycle++
@@ -46,9 +42,7 @@ const resultPart2 = () => {
 				acc.push(currentLineChars)
 			}
 		}
-		
 		if (value) currentRegister += +value
-
 		const newSprite = currentSprite.split``
 		for (const [index, _] of newSprite.entries()) {
 			if (index < currentRegister - 1 || index >= currentRegister + 2) newSprite[index] = '.'
