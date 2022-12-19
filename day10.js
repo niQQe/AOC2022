@@ -27,19 +27,19 @@ const resultPart1 = () => {
 const resultPart2 = () => {
 	let currentSprite = '###.....................................'
 	let currentCycle = 0
+	let currentLineChars = ''
 	let registerValue = 1
-	let lineChars = ''
 	const cyclesOfInterest = [40, 80, 120, 160, 200, 240]
 
 	return input.reduce((acc, row) => {
 		const [instruction, value] = row.split` `
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
-			lineChars += currentSprite[currentCycle]
+			currentLineChars += currentSprite[currentCycle]
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
 				currentCycle = 0
-				acc.push(lineChars)
-				lineChars = ''
+				currentLineChars = ''
+				acc.push(currentLineChars)
 			}
 		}
 		if (value) registerValue += +value
