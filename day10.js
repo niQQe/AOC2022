@@ -49,7 +49,6 @@ const resultPart2 = () => {
 			else newSprite[index] = '#'
 		}
 		currentSprite = newSprite.join``
-	
 		return monitor
 	}, [])
 }
