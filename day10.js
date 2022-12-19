@@ -54,7 +54,6 @@ const resultPart2 = () => {
 
 		return acc
 	}, [])
-
 }
 
 console.log(resultPart1());
