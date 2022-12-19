@@ -25,7 +25,7 @@ const resultPart1 = () => {
 };
 
 const resultPart2 = () => {
-	let spritePosition = '###.....................................'
+	let currentSprite = '###.....................................'
 	let currentCycle = 0
 	let registerValue = 1
 	let lineChars = ''
@@ -34,7 +34,7 @@ const resultPart2 = () => {
 	return input.reduce((acc, row) => {
 		const [instruction, value] = row.split` `
 		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
-			lineChars += spritePosition[currentCycle]
+			lineChars += currentSprite[currentCycle]
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
 				currentCycle = 0
@@ -44,16 +44,17 @@ const resultPart2 = () => {
 		}
 		if (value) registerValue += +value
 
-		const _spritePosition = spritePosition.split``
-		for (const [index, _] of _spritePosition.entries()) {
-			if (index < registerValue - 1 || index >= registerValue + 2) _spritePosition[index] = '.'
-			else _spritePosition[index] = '#'
+		const newSprite = currentSprite.split``
+		for (const [index, _] of newSprite.entries()) {
+			if (index < registerValue - 1 || index >= registerValue + 2) newSprite[index] = '.'
+			else newSprite[index] = '#'
 		}
 
-		spritePosition = _spritePosition.join``
+		currentSprite = newSprite.join``
 
 		return acc
 	}, [])
+
 }
 
 console.log(resultPart1());
