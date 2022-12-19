@@ -44,13 +44,13 @@ const resultPart2 = () => {
 		}
 		if (value) registerValue += +value
 
-		const split = spritePosition.split``
-		for (const [index, _] of split.entries()) {
-			if (index < registerValue - 1 || index >= registerValue + 2) split[index] = '.'
-			else split[index] = '#'
+		const _spritePosition = spritePosition.split``
+		for (const [index, _] of _spritePosition.entries()) {
+			if (index < registerValue - 1 || index >= registerValue + 2) _spritePosition[index] = '.'
+			else _spritePosition[index] = '#'
 		}
 
-		spritePosition = split.join``
+		spritePosition = _spritePosition.join``
 
 		return acc
 	}, [])
