@@ -26,8 +26,8 @@ const resultPart1 = () => {
 
 const resultPart2 = () => {
 	let currentSprite = '###.....................................'
-	let currentCycle = 0
 	let currentLineChars = ''
+	let currentCycle = 0
 	let currentRegister = 1
 	const cyclesOfInterest = [40, 80, 120, 160, 200, 240]
 
