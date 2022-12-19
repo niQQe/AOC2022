@@ -37,8 +37,8 @@ const resultPart2 = () => {
 			currentLineChars += currentSprite[currentCycle]
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
-				currentCycle = 0
 				monitor.push(currentLineChars)
+				currentCycle = 0
 				currentLineChars = ''
 			}
 		}
