@@ -81,7 +81,6 @@ const parsedData = input.reduce((monkeysObject, row, index) => {
 	}
 })
 
-
 const resultPart1 = () => {
 	let round = 0
 	while (round < 20) {
