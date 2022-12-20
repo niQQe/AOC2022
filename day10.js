@@ -33,7 +33,7 @@ const resultPart2 = () => {
 
 	return input.reduce((monitor, line) => {
 		const [instruction, value] = line.split` `
-		for (let cycle = 0; cycle < cyclesPerInstruction[instruction]; cycle++) {
+		for (const _ of cyclesPerInstruction[instruction]) {
 			currentLineChars += currentSprite[currentCycle]
 			currentCycle++
 			if (cyclesOfInterest.includes(currentCycle)) {
